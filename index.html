@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MEMORIAS DE PROYECTO DE TÍTULO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <div class= "container">
+        <div id="row">
+            <div id="col">
+                <h1  class="mt-5 mb-4 text-center link-success">Cantidad de memorias calificadas con nota siete por año</h1>
+                <h4  class="text-center fs-5 my-3 link-success">Por Francisca Soto</h1>
+                <table class="table table-striped table-bordered table-hover">
+                    <tr>
+                        <th>Año</th>
+                        <th>Cantidad de sietes</th>
+                    </tr>
+                    <tr>  
+                        <td>2010</td><td id="diez"></td> 
+                    </tr>
+                    <tr>  
+                        <td>2011</td><td id="once"></td> 
+                    </tr>
+                    <tr>  
+                        <td>2012</td><td id="doce"></td> 
+                    </tr>
+                    <tr>  
+                        <td>2013</td><td id="trece"></td> 
+                    </tr>
+                    <tr>  
+                        <td>2014</td><td id="catorce"></td> 
+                    </tr>
+                    <tr>  
+                        <td>2015</td><td id="quince"></td> 
+                    </tr>
+                    <tr>  
+                        <td>2016</td><td id="dieciséis"></td> 
+                    </tr>
+                    <tr>  
+                        <td>2017</td><td id="diecisiete"></td> 
+                    </tr>
+                    <tr>  
+                        <td>2018</td><td id="dieciocho"></td> 
+                    </tr>
+                    <tr>  
+                        <td>2019</td><td id="diecinueve"></td> 
+                    </tr>
+                    <tr>  
+                        <td>2020</td><td id="veinte"></td> 
+                    </tr>
+                    <tr>  
+                        <td>2021</td><td id="veintiuno"></td> 
+                    </tr>
+                    <tr>  
+                        <td>2022</td><td id="veintidos"></td> 
+                    </tr>
+                </table>
+                <h2 class="my-5 text-center link-success">Total por Profes</h2>
+                <address></address>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" integrity="sha512-dfX5uYVXzyU8+KHqj8bjo7UkOdg18PaOtpa48djpNbZHwExddghZ+ZmzWT06R5v6NSk3ZUfsH6FNEDepLx9hPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const diez = document.querySelector("#diez");
+        const once = document.querySelector("#once");
+        const doce = document.querySelector("#doce");
+        const trece = document.querySelector("#trece");
+        const catorce = document.querySelector("#catorce");
+        const quince = document.querySelector("#quince");
+        const dieciséis = document.querySelector("#dieciséis");
+        const diecisiete = document.querySelector("#diecisiete");
+        const dieciocho = document.querySelector("#dieciocho");
+        const diecinueve = document.querySelector("#diecinueve");
+        const veinte = document.querySelector("#veinte");
+        const veintiuno = document.querySelector("#veintiuno");
+        const veintidos = document.querySelector("#veintidos");
+
+        const picto = "☘";
+
+        let datos;
+        let profes = [];
+        let profesOK = [];
+        const olimpo = document.querySelector("address");
+
+
+
+        Papa.parse("https://raw.githubusercontent.com/profesorfaco/dno097-2024/main/clase-04/sietes.csv", {
+            download: true,
+            header: true,
+            dynamicTyping: true,
+            complete: function (results) {
+                datos = results.data;
+
+                datos.forEach(x => {
+                    if (x.year == 2010) {
+                        diez.innerHTML += picto;
+                    } else if (x.year == 2011) {
+                        once.innerHTML += picto;
+                    } else if (x.year == 2012) {
+                        doce.innerHTML += picto;
+                    } else if (x.year == 2013) {
+                        trece.innerHTML += picto;
+                    } else if (x.year == 2014) {
+                        catorce.innerHTML += picto;
+                    } else if (x.year == 2015) {
+                        quince.innerHTML += picto;
+                    } else if (x.year == 2016) {
+                        dieciséis.innerHTML += picto;
+                    } else if (x.year == 2017) {
+                        diecisiete.innerHTML += picto;
+                    } else if (x.year == 2018) {
+                        dieciocho.innerHTML += picto;
+                    } else if (x.year == 2019) {
+                        diecinueve.innerHTML += picto;
+                    } else if (x.year == 2020) {
+                        veinte.innerHTML += picto;
+                    } else if (x.year == 2021) {
+                        veintiuno.innerHTML += picto;
+                    } else {
+                        veintidos.innerHTML += picto;
+                    }
+
+                    profes.push(x.tutor);
+                });
+
+                profesOK = [...new Set(profes)];
+                profesOK.sort();
+
+                // Mostrar el pictograma por cada profesor repetido
+                profesOK.forEach(profesor => {
+                    const cantidad = profes.filter(p => p === profesor).length;
+                    olimpo.innerHTML += `${profesor} ${picto.repeat(cantidad)}<br>`;
+                });
+            },
+        });
+    </script>
+</body>
+</html>
